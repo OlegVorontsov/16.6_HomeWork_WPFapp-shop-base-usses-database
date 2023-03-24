@@ -1,0 +1,92 @@
+﻿<Window x:Class="_16._6_HomeWork_WPFapp_shop_base_usses_database.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_16._6_HomeWork_WPFapp_shop_base_usses_database"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <DataGrid Grid.Column="0"
+                      x:Name="clientsGridView"
+                      IsSynchronizedWithCurrentItem="True"
+                      SelectionMode="Single" 
+                      AutoGenerateColumns="False" 
+                      ItemsSource="{Binding}"
+                      IsReadOnly="False" 
+                      CurrentCellChanged="GVCurrentCellChanged"
+                      CellEditEnding="GVCellEditEnding">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="clientId" 
+                                    Binding="{Binding id}" 
+                                    Header="ID" 
+                                    IsReadOnly="True"/>
+
+                    <DataGridTextColumn x:Name="clientSurname" 
+                                    Binding="{Binding surname}" 
+                                    Header="Фамилия"/>
+
+                    <DataGridTextColumn x:Name="clientName" 
+                                    Binding="{Binding name}" 
+                                    Header="Имя"/>
+
+                    <DataGridTextColumn x:Name="clientPatronymic" 
+                                    Binding="{Binding patronymic}" 
+                                    Header="Отчество"/>
+
+                    <DataGridTextColumn x:Name="clientPhoneNumber" 
+                                    Binding="{Binding phonenumber}" 
+                                    Header="Телефон"/>
+
+                    <DataGridTextColumn x:Name="clientEmail" 
+                                    Binding="{Binding email}" 
+                                    Header="Почта"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+            <DataGrid Grid.Column="1"
+                      x:Name="itemsGridView"
+                      IsSynchronizedWithCurrentItem="True"
+                      SelectionMode="Single" 
+                      AutoGenerateColumns="False" 
+                      ItemsSource="{Binding}"
+                      IsReadOnly="False" 
+                      CurrentCellChanged="GVCurrentCellChanged"
+                      CellEditEnding="GVCellEditEnding">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="itemId" 
+                                    Binding="{Binding ID}" 
+                                    Header="ID" 
+                                    IsReadOnly="True"/>
+
+                    <DataGridTextColumn x:Name="clientEmailItem" 
+                                    Binding="{Binding Email}" 
+                                    Header="Почта"/>
+
+                    <DataGridTextColumn x:Name="itemCode" 
+                                    Binding="{Binding Code}" 
+                                    Header="Код товара"/>
+
+                    <DataGridTextColumn x:Name="itemTitle" 
+                                    Binding="{Binding Title}" 
+                                    Header="Наименование товара"/>
+
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+        </Grid>
+
+
+        
+    </Grid>
+</Window>
