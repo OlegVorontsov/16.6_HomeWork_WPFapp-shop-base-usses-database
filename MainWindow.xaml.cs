@@ -24,6 +24,11 @@ namespace _16._6_HomeWork_WPFapp_shop_base_usses_database
         DataTable clientDT;
         DataRowView clientRow;
 
+        SqlConnection itemCon;
+        SqlDataAdapter itemDA;
+        DataTable itemDT;
+        DataRowView itemRow;
+
         public MainWindow()
         {
             InitializeComponent(); ViewBases();
@@ -33,15 +38,19 @@ namespace _16._6_HomeWork_WPFapp_shop_base_usses_database
         {
             #region InitBases
 
-            var conClientStr = new SqlConnectionStringBuilder
+            var conStr = new SqlConnectionStringBuilder
             {
                 DataSource = @"(localdb)\MSSQLLocalDB",
                 InitialCatalog = "ClientsDB",
                 IntegratedSecurity = true
             };
-            clientCon = new SqlConnection(conClientStr.ConnectionString);
+            clientCon = new SqlConnection(conStr.ConnectionString);
             clientDA = new SqlDataAdapter();
             clientDT = new DataTable();
+
+            itemCon = new SqlConnection(conStr.ConnectionString);
+            itemDA = new SqlDataAdapter();
+            itemDT = new DataTable();
 
             #endregion
 
@@ -50,12 +59,18 @@ namespace _16._6_HomeWork_WPFapp_shop_base_usses_database
             var clientSelect = @"SELECT * FROM ClientsInfo Order By ClientsInfo.id";
             clientDA.SelectCommand = new SqlCommand(clientSelect, clientCon);
 
+            var itemSelect = @"SELECT * FROM ItemsInfo Order By ItemsInfo.ID";
+            itemDA.SelectCommand = new SqlCommand(itemSelect, itemCon);
+
             #endregion
 
             #region FillBases
 
             clientDA.Fill(clientDT);
             clientsGridView.DataContext = clientDT.DefaultView;
+
+            itemDA.Fill(itemDT);
+            itemsGridView.DataContext = itemDT.DefaultView;
 
             #endregion
 
@@ -65,6 +80,9 @@ namespace _16._6_HomeWork_WPFapp_shop_base_usses_database
         {
             clientRow = (DataRowView)clientsGridView.SelectedItem;
             clientRow.BeginEdit();
+
+            itemRow = (DataRowView)itemsGridView.SelectedItem;
+            itemRow.BeginEdit();
         }
 
         private void GVCurrentCellChanged(object sender, EventArgs e)
@@ -72,6 +90,10 @@ namespace _16._6_HomeWork_WPFapp_shop_base_usses_database
             if (clientRow == null) return;
             clientRow.EndEdit();
             clientDA.Update(clientDT);
+
+            if (itemRow == null) return;
+            itemRow.EndEdit();
+            itemDA.Update(itemDT);
         }
     }
 }
