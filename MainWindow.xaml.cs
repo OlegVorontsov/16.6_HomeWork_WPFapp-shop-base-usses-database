@@ -19,10 +19,10 @@ namespace _16._6_HomeWork_WPFapp_shop_base_usses_database
 {
     public partial class MainWindow : Window
     {
-        SqlConnection sqlCon;
-        SqlDataAdapter sqlDA;
-        DataTable sqlDT;
-        DataRowView sqlRow;
+        SqlConnection clientCon;
+        SqlDataAdapter clientDA;
+        DataTable clientDT;
+        DataRowView clientRow;
 
         public MainWindow()
         {
@@ -33,29 +33,29 @@ namespace _16._6_HomeWork_WPFapp_shop_base_usses_database
         {
             #region InitBases
 
-            var conSqlStr = new SqlConnectionStringBuilder
+            var conClientStr = new SqlConnectionStringBuilder
             {
                 DataSource = @"(localdb)\MSSQLLocalDB",
                 InitialCatalog = "ClientsDB",
                 IntegratedSecurity = true
             };
-            sqlCon = new SqlConnection(conSqlStr.ConnectionString);
-            sqlDA = new SqlDataAdapter();
-            sqlDT = new DataTable();
+            clientCon = new SqlConnection(conClientStr.ConnectionString);
+            clientDA = new SqlDataAdapter();
+            clientDT = new DataTable();
 
             #endregion
 
             #region Select
 
-            var sqlSelect = @"SELECT * FROM ClientsInfo Order By ClientsInfo.id";
-            sqlDA.SelectCommand = new SqlCommand(sqlSelect, sqlCon);
+            var clientSelect = @"SELECT * FROM ClientsInfo Order By ClientsInfo.id";
+            clientDA.SelectCommand = new SqlCommand(clientSelect, clientCon);
 
             #endregion
 
             #region FillBases
 
-            sqlDA.Fill(sqlDT);
-            clientsGridView.DataContext = sqlDT.DefaultView;
+            clientDA.Fill(clientDT);
+            clientsGridView.DataContext = clientDT.DefaultView;
 
             #endregion
 
@@ -63,15 +63,15 @@ namespace _16._6_HomeWork_WPFapp_shop_base_usses_database
 
         private void GVCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            sqlRow = (DataRowView)clientsGridView.SelectedItem;
-            sqlRow.BeginEdit();
+            clientRow = (DataRowView)clientsGridView.SelectedItem;
+            clientRow.BeginEdit();
         }
 
         private void GVCurrentCellChanged(object sender, EventArgs e)
         {
-            if (sqlRow == null) return;
-            sqlRow.EndEdit();
-            sqlDA.Update(sqlDT);
+            if (clientRow == null) return;
+            clientRow.EndEdit();
+            clientDA.Update(clientDT);
         }
     }
 }
