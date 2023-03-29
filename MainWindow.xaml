@@ -21,7 +21,7 @@
                       ItemsSource="{Binding}"
                       IsReadOnly="False" 
                       CurrentCellChanged="GVCurrentCellChanged"
-                      CellEditEnding="GVCellEditEnding">
+                      CellEditEnding="GVCellEditEnding" SelectionChanged="clientsGridView_SelectionChanged">
 
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="clientId" 
