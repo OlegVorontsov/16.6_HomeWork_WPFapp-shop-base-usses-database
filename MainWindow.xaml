@@ -12,16 +12,20 @@
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="10*"/>
+            </Grid.RowDefinitions>
 
-            <DataGrid Grid.Column="0"
+            <DataGrid Grid.Column="0" Grid.Row="1"
                       x:Name="clientsGridView"
                       IsSynchronizedWithCurrentItem="True"
                       SelectionMode="Single" 
                       AutoGenerateColumns="False" 
                       ItemsSource="{Binding}"
                       IsReadOnly="False" 
-                      CurrentCellChanged="GVCurrentCellChanged"
-                      CellEditEnding="GVCellEditEnding" SelectionChanged="clientsGridView_SelectionChanged">
+                      CurrentCellChanged="GVCurrentCellChangedClient"
+                      CellEditEnding="GVCellEditEndingClient" SelectionChanged="clientsGridView_SelectionChanged" >
 
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="clientId" 
@@ -50,17 +54,24 @@
                                     Header="Почта"/>
                 </DataGrid.Columns>
 
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Добавить" Click="MenuItemAddClientClick"/>
+                        <MenuItem Header="Удалить" Click="MenuItemDeleteClientClick"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+
             </DataGrid>
 
-            <DataGrid Grid.Column="1"
+            <DataGrid Grid.Column="2" Grid.Row="1"
                       x:Name="itemsGridView"
                       IsSynchronizedWithCurrentItem="True"
                       SelectionMode="Single" 
                       AutoGenerateColumns="False" 
                       ItemsSource="{Binding}"
                       IsReadOnly="False" 
-                      CurrentCellChanged="GVCurrentCellChanged"
-                      CellEditEnding="GVCellEditEnding">
+                      CurrentCellChanged="GVCurrentCellChangedItem"
+                      CellEditEnding="GVCellEditEndingItem">
 
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="itemId" 
@@ -79,14 +90,23 @@
                     <DataGridTextColumn x:Name="itemTitle" 
                                     Binding="{Binding Title}" 
                                     Header="Наименование товара"/>
-
                 </DataGrid.Columns>
 
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Добавить" Click="MenuItemAddItemClick"/>
+                        <MenuItem Header="Удалить" Click="MenuItemDeleteItemClick"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+
             </DataGrid>
+            <TextBlock Text="Клиенты" FontSize="20"
+                HorizontalAlignment="Center" Margin="5"  TextWrapping="Wrap" VerticalAlignment="Center"/>
+
+            <TextBlock  Text="Товары" FontSize="20" Grid.Column="1"
+                 HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap" VerticalAlignment="Center"/>
 
         </Grid>
 
-
-        
     </Grid>
 </Window>
